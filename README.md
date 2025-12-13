@@ -85,6 +85,12 @@ The program includes an example input for a new patient and prints:
 
 ---
 
+## 🚀 Live Demo
+🔗 https://strokepredictionmlmodel.streamlit.app
+
+This web app predicts the risk of stroke based on patient health data using a trained Random Forest model and preprocessing pipeline.
+
+
 ## 🚀 Future Improvements
 
 You can enhance this project by adding:
