@@ -6,146 +6,160 @@ import joblib
 st.set_page_config(
     page_title="AI Stroke Risk Predictor",
     page_icon="🧠",
-    layout="centered"
+    layout="wide"
 )
 
 # ---------------- CUSTOM CSS ----------------
 st.markdown("""
 <style>
 
-/* FULL APP BACKGROUND */
-[data-testid="stAppViewContainer"] {
+/* Background */
+.stApp {
     background: linear-gradient(135deg, #664C36, #331C08);
+    color: #ffffff;
 }
 
-/* REMOVE STREAMLIT HEADER SPACE */
-[data-testid="stHeader"] {
-    background: transparent;
-}
-
-/* MAIN CONTENT CARD */
-.main-card {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 18px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
-    margin-top: 20px;
-}
-
-/* HEADER BOX */
-.header-box {
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 20px;
+/* Main title */
+.main-title {
     text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.subtitle {
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* Card */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 14px;
+    color: #2b1a0f;
     margin-bottom: 25px;
 }
 
-.header-box h1 {
-    color: #331C08;
-    font-size: 36px;
-    font-weight: 800;
+/* Section heading */
+.section-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #ffffff;
 }
 
-/* DISCLAIMER */
+/* Disclaimer */
 .disclaimer {
-    background: #fff3cd;
-    padding: 16px;
-    border-left: 6px solid #ffc107;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-left: 6px solid #f5c542;
+    border-radius: 10px;
     font-size: 14px;
+    margin-bottom: 25px;
 }
 
-/* RESULTS */
+/* Buttons */
+.stButton > button {
+    background: #331C08;
+    color: white;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+}
+.stButton > button:hover {
+    background: #4a2a12;
+}
+
+/* Result boxes */
 .result-high {
-    background: #fdecea;
-    padding: 18px;
+    background: rgba(220, 53, 69, 0.15);
+    padding: 20px;
     border-left: 6px solid #dc3545;
     border-radius: 12px;
 }
-
 .result-low {
-    background: #e7f5ec;
-    padding: 18px;
+    background: rgba(40, 167, 69, 0.15);
+    padding: 20px;
     border-left: 6px solid #28a745;
     border-radius: 12px;
 }
 
-/* BUTTON STYLE */
-.stButton > button {
-    background: linear-gradient(135deg, #664C36, #331C08);
-    color: white;
-    font-size: 16px;
-    padding: 12px 22px;
-    border-radius: 14px;
-    border: none;
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.9;
 }
 
-/* FOOTER BUTTONS */
-.footer-btn {
+/* Footer buttons */
+.footer a {
     display: inline-block;
-    padding: 12px 22px;
     margin: 10px;
-    background: linear-gradient(135deg, #664C36, #331C08);
-    color: white !important;
+    padding: 12px 22px;
+    background: rgba(255,255,255,0.18);
+    color: white;
     border-radius: 14px;
     text-decoration: none;
     font-weight: 600;
+}
+.footer a:hover {
+    background: rgba(255,255,255,0.3);
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
 
 # ---------------- HEADER ----------------
-st.markdown("""
-<div class="header-box">
-    <h1>🧠 AI Stroke Risk Predictor</h1>
-    <p>Early Risk Detection using Machine Learning</p>
-</div>
-""", unsafe_allow_html=True)
+st.markdown("<div class='main-title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Early Stroke Risk Detection using Machine Learning</div>", unsafe_allow_html=True)
 
 # ---------------- DISCLAIMER ----------------
 st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.<br><br>
-If you experience stroke symptoms (sudden numbness, confusion, trouble speaking, severe headache),
-seek immediate medical attention by calling emergency services.
+Always consult qualified healthcare professionals for medical decisions.
+If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
+seek immediate medical attention.
 </div>
 """, unsafe_allow_html=True)
 
-st.write("")
+# ---------------- PATIENT INFO ----------------
+st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
 
-# ---------------- INPUT FORM ----------------
-st.markdown("<div class='card'>", unsafe_allow_html=True)
-st.subheader("🩺 Patient Information")
+with st.container():
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-col1, col2 = st.columns(2)
+    c1, c2 = st.columns(2)
 
-with col1:
-    gender = st.selectbox("Gender", ["Male", "Female"])
-    age = st.number_input("Age", 1, 100, 45)
-    hypertension = st.selectbox("Hypertension", [0, 1])
-    heart_disease = st.selectbox("Heart Disease", [0, 1])
-    ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+    with c1:
+        gender = st.selectbox("Gender", ["Male", "Female"])
+        age = st.number_input("Age", 1, 100, 45)
+        hypertension = st.selectbox("Hypertension", [0, 1])
+        heart_disease = st.selectbox("Heart Disease", [0, 1])
+        ever_married = st.selectbox("Ever Married", ["Yes", "No"])
 
-with col2:
-    work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-    residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-    glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-    bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
-    smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
+    with c2:
+        work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
+        residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
+        glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
+        bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+        smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
-predict_btn = st.button("🔍 Analyze Stroke Risk")
-st.markdown("</div>", unsafe_allow_html=True)
+    analyze = st.button("🔍 Analyze Stroke Risk")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- PREDICTION ----------------
-if predict_btn:
+if analyze:
     input_df = pd.DataFrame([{
         "gender": gender,
         "age": age,
@@ -159,15 +173,13 @@ if predict_btn:
         "smoking_status": smoking
     }])
 
-    prediction = model.predict(input_df)[0]
+    pred = model.predict(input_df)[0]
 
-    st.write("")
-
-    if prediction == 1:
+    if pred == 1:
         st.markdown("""
         <div class="result-high">
         🚨 <b>High Stroke Risk Detected</b><br>
-        Immediate medical consultation is recommended.
+        Please consult a medical professional immediately.
         </div>
         """, unsafe_allow_html=True)
         st.progress(85)
@@ -181,11 +193,10 @@ if predict_btn:
         st.progress(25)
 
 # ---------------- FOOTER ----------------
-st.markdown("<br><br>", unsafe_allow_html=True)
 st.markdown("""
-<div style="text-align:center;">
-    <p>🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare</p>
-    <a class="footer-btn" href="https://github.com/Tejaswini8888" target="_blank">🐙 GitHub</a>
-    <a class="footer-btn" href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
+<div class="footer">
+🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare<br><br>
+<a href="https://github.com/Tejaswini8888" target="_blank">👩‍💻 GitHub</a>
+<a href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
 </div>
 """, unsafe_allow_html=True)
