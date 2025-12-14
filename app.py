@@ -194,7 +194,7 @@ if analyze:
 # ---------------- FOOTER ----------------
 st.markdown("""
 <div class="footer">
-🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare<br><br>
+🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcaree<br><br>
 <a href="https://github.com/Tejaswini8888" target="_blank">👩‍💻 GitHub</a>
 <a href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
 </div>
