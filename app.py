@@ -22,6 +22,14 @@ st.markdown(
     /* =========================
        🔥 LABEL VISIBILITY FIX
        ========================= */
+    div[data-testid="stWidgetLabel"] {
+    opacity: 1 !important;
+    }
+
+    div[data-testid="stWidgetLabel"] > label {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    }
 
     /* Main widget labels (ALL widgets) */
     div[data-testid="stWidgetLabel"] > label,
