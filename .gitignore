@@ -1,0 +1,7 @@
+# PyCharm / IDE
+.idea/
+__pycache__/
+*.pyc
+
+# Streamlit cache
+.streamlit/cache/
