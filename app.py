@@ -137,7 +137,7 @@ seek immediate medical attention.
 st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
 
 with st.container():
-    st.markdown("<div class='card'>", unsafe_allow_html=True)
+
     c1, c2 = st.columns(2)
 
     with c1:
