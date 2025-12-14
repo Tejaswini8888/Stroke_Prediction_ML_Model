@@ -163,7 +163,7 @@ with st.container():
     c1, c2 = st.columns(2)
 
     with c1:
-        gender = st.selectbox("Gender", ["Male", "Female"], 10.0, 60.0, 26.0)
+        gender = st.selectbox("Gender", ["Male", "Female"])
         age = st.number_input("Age", 1, 100, 45)
         hypertension = st.selectbox("Hypertension", [0, 1])
         heart_disease = st.selectbox("Heart Disease", [0, 1])
