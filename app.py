@@ -89,7 +89,6 @@ st.markdown("""
     margin-top: 40px;
     opacity: 0.95;
 }
-
 .footer a {
     display: inline-block;
     margin: 12px;
@@ -107,9 +106,7 @@ st.markdown("""
     box-shadow: 0 14px 30px rgba(0,0,0,0.35);
 }
 
-/* ================= 🔥 LABEL VISIBILITY FIX ================= */
-
-/* All widget labels */
+/* ================= LABEL VISIBILITY ================= */
 label,
 div[data-testid="stWidgetLabel"] label,
 div[data-testid="stWidgetLabel"] p {
@@ -117,20 +114,11 @@ div[data-testid="stWidgetLabel"] p {
     font-weight: 600 !important;
     opacity: 1 !important;
 }
-
-/* Streamlit BaseWeb typography */
 div[data-baseweb="typography"] {
     color: #ffffff !important;
-    opacity: 1 !important;
 }
 
-/* Number input +/- icons */
-button[aria-label="Increment"],
-button[aria-label="Decrement"] {
-    color: #0B2E33 !important;
-}
-
-/* Selectbox text */
+/* ================= SELECT PLACEHOLDER ================= */
 div[data-baseweb="select"] span {
     color: #0B2E33 !important;
     font-weight: 600;
@@ -151,9 +139,6 @@ st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
-If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
-seek immediate medical attention.
 </div>
 """, unsafe_allow_html=True)
 
@@ -163,54 +148,60 @@ st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_
 c1, c2 = st.columns(2)
 
 with c1:
-    gender = st.selectbox("Gender", ["Male", "Female"])
+    gender = st.selectbox("Gender", ["Select", "Male", "Female"], index=0)
     age = st.number_input("Age", 1, 100, 45)
-    hypertension = st.selectbox("Hypertension", [0, 1])
-    heart_disease = st.selectbox("Heart Disease", [0, 1])
-    ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+    hypertension = st.selectbox("Hypertension", ["Select", 0, 1], index=0)
+    heart_disease = st.selectbox("Heart Disease", ["Select", 0, 1], index=0)
+    ever_married = st.selectbox("Ever Married", ["Select", "Yes", "No"], index=0)
 
 with c2:
-    work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-    residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
+    work_type = st.selectbox("Work Type", ["Select", "Private", "Self-employed", "Govt_job", "children"], index=0)
+    residence_type = st.selectbox("Residence Type", ["Select", "Urban", "Rural"], index=0)
     glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
     bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
-    smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
+    smoking = st.selectbox("Smoking Status", ["Select", "never smoked", "formerly smoked", "smokes"], index=0)
 
 analyze = st.button("🔍 Analyze Stroke Risk")
 
-# ---------------- PREDICTION ----------------
+# ---------------- VALIDATION ----------------
 if analyze:
-    input_df = pd.DataFrame([{
-        "gender": gender,
-        "age": age,
-        "hypertension": hypertension,
-        "heart_disease": heart_disease,
-        "ever_married": ever_married,
-        "work_type": work_type,
-        "residence_type": residence_type,
-        "avg_glucose_level": glucose,
-        "bmi": bmi,
-        "smoking_status": smoking
-    }])
-
-    pred = model.predict(input_df)[0]
-
-    if pred == 1:
-        st.markdown("""
-        <div class="result-high">
-        🚨 <b>High Stroke Risk Detected</b><br>
-        Please consult a medical professional immediately.
-        </div>
-        """, unsafe_allow_html=True)
-        st.progress(85)
+    if "Select" in [
+        gender, hypertension, heart_disease, ever_married,
+        work_type, residence_type, smoking
+    ]:
+        st.warning("⚠️ Please select all dropdown fields before analysis.")
     else:
-        st.markdown("""
-        <div class="result-low">
-        ✅ <b>Low Stroke Risk Detected</b><br>
-        Maintain a healthy lifestyle and regular checkups.
-        </div>
-        """, unsafe_allow_html=True)
-        st.progress(25)
+        input_df = pd.DataFrame([{
+            "gender": gender,
+            "age": age,
+            "hypertension": hypertension,
+            "heart_disease": heart_disease,
+            "ever_married": ever_married,
+            "work_type": work_type,
+            "residence_type": residence_type,
+            "avg_glucose_level": glucose,
+            "bmi": bmi,
+            "smoking_status": smoking
+        }])
+
+        pred = model.predict(input_df)[0]
+
+        if pred == 1:
+            st.markdown("""
+            <div class="result-high">
+            🚨 <b>High Stroke Risk Detected</b><br>
+            Please consult a medical professional immediately.
+            </div>
+            """, unsafe_allow_html=True)
+            st.progress(85)
+        else:
+            st.markdown("""
+            <div class="result-low">
+            ✅ <b>Low Stroke Risk Detected</b><br>
+            Maintain a healthy lifestyle and regular checkups.
+            </div>
+            """, unsafe_allow_html=True)
+            st.progress(25)
 
 # ---------------- FOOTER ----------------
 st.markdown("""
