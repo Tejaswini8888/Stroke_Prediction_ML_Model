@@ -20,20 +20,21 @@ st.markdown(
     }
 
     /* =====================================================
-       ✅ FINAL LABEL VISIBILITY FIX (ONLY CHANGE)
-       Makes ALL labels behave like:
-       Age, BMI, Avg Glucose Level
-       Works in Dark + Light mode
+       ✅ NORMALIZE ALL LABEL STRUCTURES (Case 1 + Case 2)
+       Case 1: <label>Age</label>
+       Case 2: <label><p>Gender</p></label>
        ===================================================== */
     div[data-testid="stWidgetLabel"] label,
-    div[data-testid="stWidgetLabel"] p,
-    div[data-testid="stWidgetLabel"] span {
+    div[data-testid="stWidgetLabel"] label p {
         color: #ffffff !important;
         font-weight: 600 !important;
         opacity: 1 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        line-height: 1.2 !important;
     }
 
-    /* Input text (UNCHANGED) */
+    /* Input text (unchanged) */
     .stSelectbox div,
     .stNumberInput input {
         color: #2b1a0f !important;
