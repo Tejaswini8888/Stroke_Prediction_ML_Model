@@ -118,45 +118,52 @@ st.markdown("""
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
 
-st.markdown("""
-<div style="
-    background: rgba(255,255,255,0.12);
-    padding: 28px;
-    border-radius: 18px;
-    text-align: center;
-    margin-bottom: 30px;
-">
-    <h1 style="
-        margin-bottom: 8px;
-        font-size: 38px;
-        font-weight: 700;
-        color: #ffffff;
-    ">
-        🧠 AI Stroke Risk Predictor
-    </h1>
-
-    <p style="
-        font-size: 16px;
-        opacity: 0.9;
-        margin-bottom: 20px;
-    ">
-        Early Stroke Risk Detection using Machine Learning
-    </p>
-
+st.markdown(
+    """
     <div style="
-        background: rgba(0,0,0,0.25);
-        padding: 16px;
-        border-radius: 12px;
-        font-size: 14px;
-        line-height: 1.6;
+        background: rgba(255,255,255,0.12);
+        padding: 28px;
+        border-radius: 18px;
+        text-align: center;
+        margin-bottom: 30px;
     ">
-        ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
-        This AI tool is for educational purposes only and should NOT replace professional medical advice.
-        Always consult qualified healthcare professionals.
-        If you experience stroke symptoms, seek emergency medical help.
+
+        <h1 style="
+            margin-bottom: 8px;
+            font-size: 38px;
+            font-weight: 700;
+            color: #ffffff;
+        ">
+            🧠 AI Stroke Risk Predictor
+        </h1>
+
+        <p style="
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            color: #ffffff;
+        ">
+            Early Stroke Risk Detection using Machine Learning
+        </p>
+
+        <div style="
+            background: rgba(0,0,0,0.35);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ffffff;
+        ">
+            ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
+            This AI tool is for educational purposes only and should NOT replace professional medical advice.
+            Always consult qualified healthcare professionals.
+            If you experience stroke symptoms, seek emergency medical help.
+        </div>
+
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
 
 # ---------------- PATIENT INFO ----------------
