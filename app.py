@@ -10,6 +10,7 @@ st.set_page_config(
 )
 
 # ---------------- CUSTOM CSS ----------------
+
 st.markdown(
     """
     <style>
@@ -19,12 +20,15 @@ st.markdown(
         color: #ffffff;
     }
 
-    /* FORCE ALL LABELS TO BE VISIBLE */
+    /* 🔥 FORCE ALL LABELS TO BE WHITE & VISIBLE */
     label,
     .stSelectbox label,
     .stNumberInput label,
     .stTextInput label,
-    [data-testid="stWidgetLabel"] {
+    [data-testid="stWidgetLabel"],
+    [data-testid="stWidgetLabel"] p,
+    .stSelectbox > div > div > div > p,
+    .stNumberInput > div > div > label {
         color: #ffffff !important;
         font-weight: 600 !important;
         font-size: 14px !important;
@@ -38,7 +42,7 @@ st.markdown(
         font-weight: 500;
     }
 
-    /* Main title */
+    /* Titles */
     .main-title {
         text-align: center;
         font-size: 40px;
@@ -82,45 +86,11 @@ st.markdown(
     .stButton > button:hover {
         background: #4a2a12;
     }
-
-    .result-high {
-        background: rgba(220, 53, 69, 0.15);
-        padding: 20px;
-        border-left: 6px solid #dc3545;
-        border-radius: 12px;
-    }
-
-    .result-low {
-        background: rgba(40, 167, 69, 0.15);
-        padding: 20px;
-        border-left: 6px solid #28a745;
-        border-radius: 12px;
-    }
-
-    .footer {
-        text-align: center;
-        margin-top: 40px;
-        opacity: 0.9;
-    }
-
-    .footer a {
-        display: inline-block;
-        margin: 10px;
-        padding: 12px 22px;
-        background: rgba(255,255,255,0.18);
-        color: white;
-        border-radius: 14px;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .footer a:hover {
-        background: rgba(255,255,255,0.3);
-    }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 # ---------------- LOAD MODEL ----------------
