@@ -9,170 +9,142 @@ st.set_page_config(
     layout="wide"
 )
 
-# ---------------- CUSTOM CSS ----------------
-st.markdown(
-    """
-    <style>
-    /* Background */
-    .stApp {
-        background: linear-gradient(135deg, #664C36, #331C08);
-        color: #ffffff;
-    }
+# ---------------- CUSTOM CSS (DARK UI LIKE IMAGE) ----------------
+st.markdown("""
+<style>
 
-    /* =====================================================
-       ✅ NORMALIZE ALL LABEL STRUCTURES (Case 1 + Case 2)
-       Case 1: <label>Age</label>
-       Case 2: <label><p>Gender</p></label>
-       ===================================================== */
-    div[data-testid="stWidgetLabel"] label,
-    div[data-testid="stWidgetLabel"] label p {
-        color: #ffffff !important;
-        font-weight: 600 !important;
-        opacity: 1 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        line-height: 1.2 !important;
-    }
+/* App background */
+.stApp {
+    background: radial-gradient(circle at top, #14171a, #0b0d10);
+    color: #ffffff;
+}
 
-    /* Input text (unchanged) */
-    .stSelectbox div,
-    .stNumberInput input {
-        color: #2b1a0f !important;
-    }
+/* Center container */
+.block-container {
+    max-width: 900px;
+    padding-top: 2.5rem;
+}
 
-    /* Titles */
-    .main-title {
-        text-align: center;
-        font-size: 40px;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
+/* Title */
+.main-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
 
-    .subtitle {
-        text-align: center;
-        font-size: 16px;
-        opacity: 0.9;
-        margin-bottom: 30px;
-    }
+/* Subtitle */
+.subtitle {
+    text-align: center;
+    font-size: 15px;
+    opacity: 0.85;
+    margin-bottom: 35px;
+}
 
-    .section-title {
-        font-size: 24px;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #ffffff;
-    }
+/* Section title */
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
 
-    .disclaimer {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 18px;
-        border-left: 6px solid #f5c542;
-        border-radius: 10px;
-        font-size: 14px;
-        margin-bottom: 25px;
-    }
+/* ALL LABELS — EXACT FIX */
+div[data-testid="stWidgetLabel"] label,
+div[data-testid="stWidgetLabel"] p {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    opacity: 1 !important;
+}
 
-    .stButton > button {
-        background: #331C08;
-        color: white;
-        border-radius: 12px;
-        padding: 12px 20px;
-        font-size: 16px;
-        font-weight: 600;
-        border: none;
-    }
+/* Inputs */
+.stSelectbox div,
+.stNumberInput input,
+.stTextInput input {
+    background-color: #1e2228 !important;
+    color: #ffffff !important;
+    border-radius: 8px;
+}
 
-    .stButton > button:hover {
-        background: #4a2a12;
-    }
+/* Buttons */
+.stButton > button {
+    background: #2a2f36;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+}
+.stButton > button:hover {
+    background: #3a4048;
+}
 
-    .result-high {
-        background: rgba(220, 53, 69, 0.15);
-        padding: 20px;
-        border-left: 6px solid #dc3545;
-        border-radius: 12px;
-    }
+/* Result cards */
+.result-high {
+    background: rgba(220, 53, 69, 0.15);
+    padding: 18px;
+    border-left: 5px solid #dc3545;
+    border-radius: 10px;
+}
+.result-low {
+    background: rgba(40, 167, 69, 0.15);
+    padding: 18px;
+    border-left: 5px solid #28a745;
+    border-radius: 10px;
+}
 
-    .result-low {
-        background: rgba(40, 167, 69, 0.15);
-        padding: 20px;
-        border-left: 6px solid #28a745;
-        border-radius: 12px;
-    }
-
-    .footer {
-        text-align: center;
-        margin-top: 40px;
-        opacity: 0.9;
-    }
-
-    .footer a {
-        display: inline-block;
-        margin: 10px;
-        padding: 12px 22px;
-        background: rgba(255,255,255,0.18);
-        color: white;
-        border-radius: 14px;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .footer a:hover {
-        background: rgba(255,255,255,0.3);
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 13px;
+    opacity: 0.7;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
 
 # ---------------- HEADER ----------------
 st.markdown("<div class='main-title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Early Stroke Risk Detection using Machine Learning</div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='subtitle'>Early Stroke Risk Detection using Machine Learning</div>",
+    unsafe_allow_html=True
+)
 
-# ---------------- DISCLAIMER ----------------
-st.markdown("""
-<div class="disclaimer">
-⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
-This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
-If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
-seek immediate medical attention.
-</div>
-""", unsafe_allow_html=True)
-
-# ---------------- PATIENT INFO ----------------
-st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
+# ---------------- INPUT FORM ----------------
+st.markdown("<div class='section-title'>Enter Your Health Information</div>", unsafe_allow_html=True)
 
 c1, c2 = st.columns(2)
 
 with c1:
     gender = st.selectbox("Gender", ["Male", "Female"])
-    age = st.number_input("Age", 1, 100, 45)
-    hypertension = st.selectbox("Hypertension", [0, 1])
-    heart_disease = st.selectbox("Heart Disease", [0, 1])
-    ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+    age = st.number_input("Age", 1, 100, 25)
+    hypertension = st.selectbox("Hypertension", ["No", "Yes"])
+    heart_disease = st.selectbox("Heart Disease", ["No", "Yes"])
 
 with c2:
-    work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-    residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-    glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-    bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+    glucose = st.number_input("Average Glucose Level (mg/dL)", 50.0, 300.0, 91.05)
+    bmi = st.number_input("BMI", 10.0, 60.0, 23.46)
     smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
-analyze = st.button("🔍 Analyze Stroke Risk")
+# Convert Yes/No → 0/1
+hypertension = 1 if hypertension == "Yes" else 0
+heart_disease = 1 if heart_disease == "Yes" else 0
+
+predict = st.button("Predict Stroke Risk")
 
 # ---------------- PREDICTION ----------------
-if analyze:
+if predict:
     input_df = pd.DataFrame([{
         "gender": gender,
         "age": age,
         "hypertension": hypertension,
         "heart_disease": heart_disease,
-        "ever_married": ever_married,
-        "work_type": work_type,
-        "residence_type": residence_type,
+        "ever_married": "Yes",
+        "work_type": "Private",
+        "residence_type": "Urban",
         "avg_glucose_level": glucose,
         "bmi": bmi,
         "smoking_status": smoking
@@ -184,24 +156,20 @@ if analyze:
         st.markdown("""
         <div class="result-high">
         🚨 <b>High Stroke Risk Detected</b><br>
-        Please consult a medical professional immediately.
+        Please consult a healthcare professional.
         </div>
         """, unsafe_allow_html=True)
-        st.progress(85)
     else:
         st.markdown("""
         <div class="result-low">
         ✅ <b>Low Stroke Risk Detected</b><br>
-        Maintain a healthy lifestyle and regular checkups.
+        Maintain a healthy lifestyle.
         </div>
         """, unsafe_allow_html=True)
-        st.progress(25)
 
 # ---------------- FOOTER ----------------
 st.markdown("""
 <div class="footer">
-🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare<br><br>
-<a href="https://github.com/Tejaswini8888" target="_blank">👩‍💻 GitHub</a>
-<a href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
+© 2025 AI Stroke Risk Predictor • Built with ❤️ using Streamlit
 </div>
 """, unsafe_allow_html=True)
