@@ -15,7 +15,7 @@ st.markdown("""
 
 /* Background */
 .stApp {
-    background: linear-gradient(135deg, #664C36, #331C08);
+    background: linear-gradient(135deg, #4F7C82, #0B2E33);
     color: #ffffff;
 }
 
@@ -40,7 +40,7 @@ st.markdown("""
     background: rgba(255, 255, 255, 0.95);
     padding: 25px;
     border-radius: 14px;
-    color: #2b1a0f;
+    color: #0B2E33;
     margin-bottom: 25px;
 }
 
@@ -54,9 +54,9 @@ st.markdown("""
 
 /* Disclaimer */
 .disclaimer {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.18);
     padding: 18px;
-    border-left: 6px solid #f5c542;
+    border-left: 6px solid #4F7C82;
     border-radius: 10px;
     font-size: 14px;
     margin-bottom: 25px;
@@ -64,27 +64,30 @@ st.markdown("""
 
 /* Buttons */
 .stButton > button {
-    background: #331C08;
+    background: #0B2E33;
     color: white;
-    border-radius: 12px;
-    padding: 12px 20px;
+    border-radius: 14px;
+    padding: 12px 22px;
     font-size: 16px;
     font-weight: 600;
     border: none;
+    transition: all 0.3s ease;
 }
 .stButton > button:hover {
-    background: #4a2a12;
+    background: #4F7C82;
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.35);
 }
 
 /* Result boxes */
 .result-high {
-    background: rgba(220, 53, 69, 0.15);
+    background: rgba(220, 53, 69, 0.18);
     padding: 20px;
     border-left: 6px solid #dc3545;
     border-radius: 12px;
 }
 .result-low {
-    background: rgba(40, 167, 69, 0.15);
+    background: rgba(40, 167, 69, 0.18);
     padding: 20px;
     border-left: 6px solid #28a745;
     border-radius: 12px;
@@ -94,22 +97,25 @@ st.markdown("""
 .footer {
     text-align: center;
     margin-top: 40px;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 /* Footer buttons */
 .footer a {
     display: inline-block;
-    margin: 10px;
-    padding: 12px 22px;
+    margin: 12px;
+    padding: 14px 26px;
     background: rgba(255,255,255,0.18);
     color: white;
-    border-radius: 14px;
+    border-radius: 16px;
     text-decoration: none;
     font-weight: 600;
+    transition: all 0.3s ease;
 }
 .footer a:hover {
-    background: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.35);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35);
 }
 
 </style>
@@ -155,7 +161,6 @@ with st.container():
         smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
     analyze = st.button("🔍 Analyze Stroke Risk")
-    st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- PREDICTION ----------------
 if analyze:
@@ -194,7 +199,7 @@ if analyze:
 # ---------------- FOOTER ----------------
 st.markdown("""
 <div class="footer">
-🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcaree<br><br>
+🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare<br><br>
 <a href="https://github.com/Tejaswini8888" target="_blank">👩‍💻 GitHub</a>
 <a href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
 </div>
