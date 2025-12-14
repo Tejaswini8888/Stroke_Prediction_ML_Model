@@ -19,16 +19,19 @@ st.markdown(
         color: #ffffff;
     }
 
-   /* FORCE ALL LABELS TO BE CONSISTENT */
+    /* =====================================================
+       ✅ FINAL LABEL VISIBILITY FIX (ONLY CHANGE)
+       Makes ALL labels (Gender, Hypertension, etc.)
+       look exactly like Age / BMI / Glucose
+       ===================================================== */
     div[data-testid="stWidgetLabel"] label,
     div[data-testid="stWidgetLabel"] p {
-    color: #ffffff !important;
-    font-weight: 600 !important;
-    opacity: 1 !important;
+        color: #ffffff !important;
+        font-weight: 600 !important;
+        opacity: 1 !important;
     }
 
-
-    /* Do NOT touch input values */
+    /* Input text (unchanged) */
     .stSelectbox div,
     .stNumberInput input {
         color: #2b1a0f !important;
@@ -130,8 +133,9 @@ st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals.
-If you experience stroke symptoms, seek emergency medical help.
+Always consult qualified healthcare professionals for medical decisions.
+If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
+seek immediate medical attention.
 </div>
 """, unsafe_allow_html=True)
 
