@@ -118,20 +118,46 @@ st.markdown("""
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
 
-# ---------------- HEADER ----------------
-st.markdown("<div class='main-title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Early Stroke Risk Detection using Machine Learning</div>", unsafe_allow_html=True)
-
-# ---------------- DISCLAIMER ----------------
 st.markdown("""
-<div class="disclaimer">
-⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
-This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
-If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
-seek immediate medical attention.
+<div style="
+    background: rgba(255,255,255,0.12);
+    padding: 28px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 30px;
+">
+    <h1 style="
+        margin-bottom: 8px;
+        font-size: 38px;
+        font-weight: 700;
+        color: #ffffff;
+    ">
+        🧠 AI Stroke Risk Predictor
+    </h1>
+
+    <p style="
+        font-size: 16px;
+        opacity: 0.9;
+        margin-bottom: 20px;
+    ">
+        Early Stroke Risk Detection using Machine Learning
+    </p>
+
+    <div style="
+        background: rgba(0,0,0,0.25);
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        line-height: 1.6;
+    ">
+        ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
+        This AI tool is for educational purposes only and should NOT replace professional medical advice.
+        Always consult qualified healthcare professionals.
+        If you experience stroke symptoms, seek emergency medical help.
+    </div>
 </div>
 """, unsafe_allow_html=True)
+
 
 # ---------------- PATIENT INFO ----------------
 st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
