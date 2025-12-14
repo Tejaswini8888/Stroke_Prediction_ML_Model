@@ -107,7 +107,6 @@ ul li {
 </style>
 """, unsafe_allow_html=True)
 
-
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
 
@@ -120,8 +119,9 @@ st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals.
-If you experience stroke symptoms, seek emergency medical help.
+Always consult qualified healthcare professionals for medical decisions.
+If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
+seek immediate medical attention.
 </div>
 """, unsafe_allow_html=True)
 
