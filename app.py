@@ -19,6 +19,29 @@ st.markdown("""
     color: #ffffff;
 }
 
+/* FIX FORM LABEL VISIBILITY */
+label, .stSelectbox label, .stNumberInput label {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Input text */
+.stSelectbox div, 
+.stNumberInput input {
+    color: #2b1a0f !important;
+    font-weight: 500;
+}
+
+/* Dropdown selected text */
+.stSelectbox span {
+    color: #2b1a0f !important;
+}
+
+/* Placeholder */
+input::placeholder {
+    color: #777 !important;
+}
+
 /* Main title */
 .main-title {
     text-align: center;
@@ -128,8 +151,7 @@ st.markdown("""
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
 Always consult qualified healthcare professionals for medical decisions.
-If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
-seek immediate medical attention.
+If you experience stroke symptoms, seek immediate medical attention.
 </div>
 """, unsafe_allow_html=True)
 
