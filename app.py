@@ -20,39 +20,16 @@ st.markdown(
     }
 
     /* =========================
-       🔥 LABEL VISIBILITY FIX
+       ✅ FINAL LABEL VISIBILITY FIX
+       (works in dark + light mode)
        ========================= */
-    div[data-testid="stWidgetLabel"] {
-    opacity: 1 !important;
-    }
-
-    div[data-testid="stWidgetLabel"] > label {
-    color: #ffffff !important;
-    font-weight: 500 !important;
-    }
-
-    /* Main widget labels (ALL widgets) */
-    div[data-testid="stWidgetLabel"] > label,
-    div[data-testid="stWidgetLabel"] > label > div,
-    div[data-testid="stWidgetLabel"] p {
+    div[data-testid="stWidgetLabel"] label {
         color: #ffffff !important;
-        font-weight: 600 !important;
+        font-weight: 500 !important;
         opacity: 1 !important;
     }
 
-    /* Selectbox labels */
-    .stSelectbox label {
-        color: #ffffff !important;
-        font-weight: 600 !important;
-    }
-
-    /* Number input labels */
-    .stNumberInput label {
-        color: #ffffff !important;
-        font-weight: 600 !important;
-    }
-
-    /* Text inside inputs (unchanged) */
+    /* Do NOT touch input values */
     .stSelectbox div,
     .stNumberInput input {
         color: #2b1a0f !important;
