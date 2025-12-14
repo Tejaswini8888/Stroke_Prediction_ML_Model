@@ -13,50 +13,40 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Background */
+/* App background */
 .stApp {
     background: linear-gradient(135deg, #664C36, #331C08);
-    color: #ffffff;
+    color: white;
 }
 
-/* ===== FIX STREAMLIT LABEL VISIBILITY ===== */
-div[data-testid="stWidgetLabel"] > label {
+/* ===== FORCE ALL STREAMLIT LABELS TO WHITE ===== */
+label,
+span[data-testid="stWidgetLabel"],
+div[data-testid="stWidgetLabel"] > label,
+div[data-testid="stWidgetLabel"] span,
+.st-emotion-cache-16idsys,
+.st-emotion-cache-16idsys span,
+.st-emotion-cache-16idsys label {
     color: #ffffff !important;
     font-weight: 600 !important;
     font-size: 14px !important;
 }
 
-/* Input box text */
-.stSelectbox div,
-.stNumberInput input {
+/* Input field text */
+input,
+textarea {
     color: #2b1a0f !important;
     font-weight: 500;
 }
 
-/* Dropdown selected text */
+/* Selectbox selected value */
 .stSelectbox span {
     color: #2b1a0f !important;
 }
 
-/* Placeholder */
-input::placeholder {
-    color: #777 !important;
-}
-
-/* Main title */
-.main-title {
-    text-align: center;
-    font-size: 40px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-/* Subtitle */
-.subtitle {
-    text-align: center;
-    font-size: 16px;
-    opacity: 0.9;
-    margin-bottom: 30px;
+/* Dropdown menu options */
+ul li {
+    color: #2b1a0f !important;
 }
 
 /* Section heading */
@@ -65,16 +55,6 @@ input::placeholder {
     font-weight: 600;
     margin-bottom: 15px;
     color: #ffffff;
-}
-
-/* Disclaimer */
-.disclaimer {
-    background: rgba(255, 255, 255, 0.15);
-    padding: 18px;
-    border-left: 6px solid #f5c542;
-    border-radius: 10px;
-    font-size: 14px;
-    margin-bottom: 25px;
 }
 
 /* Buttons */
@@ -93,13 +73,13 @@ input::placeholder {
 
 /* Result boxes */
 .result-high {
-    background: rgba(220, 53, 69, 0.15);
+    background: rgba(220, 53, 69, 0.2);
     padding: 20px;
     border-left: 6px solid #dc3545;
     border-radius: 12px;
 }
 .result-low {
-    background: rgba(40, 167, 69, 0.15);
+    background: rgba(40, 167, 69, 0.2);
     padding: 20px;
     border-left: 6px solid #28a745;
     border-radius: 12px;
@@ -109,7 +89,6 @@ input::placeholder {
 .footer {
     text-align: center;
     margin-top: 40px;
-    opacity: 0.9;
 }
 .footer a {
     display: inline-block;
@@ -127,6 +106,7 @@ input::placeholder {
 
 </style>
 """, unsafe_allow_html=True)
+
 
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
