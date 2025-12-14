@@ -13,13 +13,13 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Background */
+/* ================= BACKGROUND ================= */
 .stApp {
     background: linear-gradient(135deg, #4F7C82, #0B2E33);
     color: #ffffff;
 }
 
-/* Main title */
+/* ================= TITLES ================= */
 .main-title {
     text-align: center;
     font-size: 40px;
@@ -27,7 +27,6 @@ st.markdown("""
     margin-bottom: 10px;
 }
 
-/* Subtitle */
 .subtitle {
     text-align: center;
     font-size: 16px;
@@ -35,24 +34,15 @@ st.markdown("""
     margin-bottom: 30px;
 }
 
-/* Card */
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 25px;
-    border-radius: 14px;
-    color: #0B2E33;
-    margin-bottom: 25px;
-}
-
-/* Section heading */
+/* ================= SECTION ================= */
 .section-title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     color: #ffffff;
 }
 
-/* Disclaimer */
+/* ================= DISCLAIMER ================= */
 .disclaimer {
     background: rgba(255, 255, 255, 0.18);
     padding: 18px;
@@ -62,7 +52,7 @@ st.markdown("""
     margin-bottom: 25px;
 }
 
-/* Buttons */
+/* ================= BUTTON ================= */
 .stButton > button {
     background: #0B2E33;
     color: white;
@@ -79,7 +69,7 @@ st.markdown("""
     box-shadow: 0 12px 28px rgba(0,0,0,0.35);
 }
 
-/* Result boxes */
+/* ================= RESULT BOXES ================= */
 .result-high {
     background: rgba(220, 53, 69, 0.18);
     padding: 20px;
@@ -93,14 +83,13 @@ st.markdown("""
     border-radius: 12px;
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
 .footer {
     text-align: center;
     margin-top: 40px;
     opacity: 0.95;
 }
 
-/* Footer buttons */
 .footer a {
     display: inline-block;
     margin: 12px;
@@ -116,6 +105,35 @@ st.markdown("""
     background: rgba(255,255,255,0.35);
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+}
+
+/* ================= 🔥 LABEL VISIBILITY FIX ================= */
+
+/* All widget labels */
+label,
+div[data-testid="stWidgetLabel"] label,
+div[data-testid="stWidgetLabel"] p {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
+}
+
+/* Streamlit BaseWeb typography */
+div[data-baseweb="typography"] {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+/* Number input +/- icons */
+button[aria-label="Increment"],
+button[aria-label="Decrement"] {
+    color: #0B2E33 !important;
+}
+
+/* Selectbox text */
+div[data-baseweb="select"] span {
+    color: #0B2E33 !important;
+    font-weight: 600;
 }
 
 </style>
@@ -142,25 +160,23 @@ seek immediate medical attention.
 # ---------------- PATIENT INFO ----------------
 st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
 
-with st.container():
+c1, c2 = st.columns(2)
 
-    c1, c2 = st.columns(2)
+with c1:
+    gender = st.selectbox("Gender", ["Male", "Female"])
+    age = st.number_input("Age", 1, 100, 45)
+    hypertension = st.selectbox("Hypertension", [0, 1])
+    heart_disease = st.selectbox("Heart Disease", [0, 1])
+    ever_married = st.selectbox("Ever Married", ["Yes", "No"])
 
-    with c1:
-        gender = st.selectbox("Gender", ["Male", "Female"])
-        age = st.number_input("Age", 1, 100, 45)
-        hypertension = st.selectbox("Hypertension", [0, 1])
-        heart_disease = st.selectbox("Heart Disease", [0, 1])
-        ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+with c2:
+    work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
+    residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
+    glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
+    bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+    smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
-    with c2:
-        work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-        residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-        glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-        bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
-        smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
-
-    analyze = st.button("🔍 Analyze Stroke Risk")
+analyze = st.button("🔍 Analyze Stroke Risk")
 
 # ---------------- PREDICTION ----------------
 if analyze:
