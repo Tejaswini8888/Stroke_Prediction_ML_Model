@@ -13,42 +13,54 @@ st.set_page_config(
 st.markdown("""
 <style>
 body {
-    background-color: #f4f6fb;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
 }
-.main-title {
+.block-container {
+    padding-top: 2rem;
+}
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
+}
+.title {
     text-align: center;
     font-size: 42px;
-    font-weight: 700;
+    font-weight: 800;
+    color: white;
 }
 .subtitle {
     text-align: center;
-    color: #555;
-    margin-bottom: 30px;
-}
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
+    color: #e0e0e0;
+    margin-bottom: 25px;
 }
 .disclaimer {
     background: #fff3cd;
-    padding: 18px;
-    border-left: 6px solid #ffc107;
-    border-radius: 8px;
+    padding: 15px;
+    border-left: 6px solid #ff9800;
+    border-radius: 10px;
     font-size: 14px;
 }
-.result-high {
+.cta {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+.high-risk {
     background: #fdecea;
-    padding: 20px;
     border-left: 6px solid #dc3545;
+    padding: 18px;
     border-radius: 10px;
 }
-.result-low {
+.low-risk {
     background: #e7f5ec;
-    padding: 20px;
     border-left: 6px solid #28a745;
+    padding: 18px;
     border-radius: 10px;
 }
 </style>
@@ -58,24 +70,23 @@ body {
 model = joblib.load("stroke_pipeline.joblib")
 
 # ---------------- HEADER ----------------
-st.markdown("<div class='main-title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Advanced Machine Learning for Healthcare Screening</div>", unsafe_allow_html=True)
 
 # ---------------- DISCLAIMER ----------------
 st.markdown("""
 <div class="disclaimer">
-⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
-This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
+⚠️ <b>Medical Disclaimer:</b>  
+This tool is for educational purposes only and does NOT replace professional medical advice.
 </div>
 """, unsafe_allow_html=True)
 
 st.write("")
 
 # ---------------- MAIN LAYOUT ----------------
-left, right = st.columns([2,1])
+left, right = st.columns([2.2, 1])
 
-# ---------------- INPUT CARD ----------------
+# ---------------- LEFT: PATIENT FORM ----------------
 with left:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("🩺 Patient Information")
@@ -86,32 +97,35 @@ with left:
         gender = st.selectbox("Gender", ["Male", "Female"])
         age = st.number_input("Age", 1, 100, 45)
         hypertension = st.selectbox("Hypertension", [0, 1])
-        heart_disease = st.selectbox("Heart Disease", [0, 1])
         ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+        residence = st.selectbox("Residence Type", ["Urban", "Rural"])
 
     with col2:
+        heart_disease = st.selectbox("Heart Disease", [0, 1])
         work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-        residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-        glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-        bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+        glucose = st.number_input("Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
+        bmi = st.number_input("BMI (optional)", 10.0, 60.0, 26.0)
         smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
-    predict_btn = st.button("🔍 Analyze Stroke Risk")
+    analyze = st.button("🔍 Analyze Stroke Risk")
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ---------------- SIDE VISUAL CARD ----------------
+# ---------------- RIGHT: VISUAL PANEL ----------------
 with right:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("🧠 Ready for Analysis")
     st.image(
-        "https://images.unsplash.com/photo-1581091012184-5c7b6c5b3a63",
+        "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b",
         use_container_width=True
     )
-    st.markdown("AI evaluates risk based on health indicators.")
+    st.markdown("""
+    AI analyzes patient health indicators and estimates stroke risk using
+    trained machine learning models.
+    """)
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- PREDICTION ----------------
-if predict_btn:
+if analyze:
     input_df = pd.DataFrame([{
         "gender": gender,
         "age": age,
@@ -119,37 +133,39 @@ if predict_btn:
         "heart_disease": heart_disease,
         "ever_married": ever_married,
         "work_type": work_type,
-        "residence_type": residence_type,
+        "residence_type": residence,
         "avg_glucose_level": glucose,
         "bmi": bmi,
         "smoking_status": smoking
     }])
 
-    prediction = model.predict(input_df)[0]
+    pred = model.predict(input_df)[0]
 
     st.write("")
-
-    if prediction == 1:
+    if pred == 1:
         st.markdown("""
-        <div class="result-high">
+        <div class="high-risk">
         🚨 <b>High Stroke Risk Detected</b><br>
         Immediate medical consultation is recommended.
         </div>
         """, unsafe_allow_html=True)
-        st.progress(85)
+        st.progress(90)
     else:
         st.markdown("""
-        <div class="result-low">
+        <div class="low-risk">
         ✅ <b>Low Stroke Risk Detected</b><br>
         Maintain a healthy lifestyle and regular checkups.
         </div>
         """, unsafe_allow_html=True)
-        st.progress(25)
+        st.progress(30)
 
 # ---------------- FOOTER ----------------
 st.markdown("---")
 st.markdown(
-    "Created by **Tejaswini Madarapu** | "
-    "[GitHub](https://github.com/Tejaswini8888) | "
-    "[LinkedIn](https://www.linkedin.com/in/tejaswini-madarapu/)"
+    "<div style='text-align:center;color:white;'>"
+    "Created by <b>Tejaswini Madarapu</b> | "
+    "<a href='https://github.com/Tejaswini8888' style='color:white;'>GitHub</a> | "
+    "<a href='https://www.linkedin.com/in/tejaswini-madarapu/' style='color:white;'>LinkedIn</a>"
+    "</div>",
+    unsafe_allow_html=True
 )
