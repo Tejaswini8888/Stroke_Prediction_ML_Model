@@ -19,14 +19,15 @@ st.markdown("""
     color: #ffffff;
 }
 
-/* FIX FORM LABEL VISIBILITY */
-label, .stSelectbox label, .stNumberInput label {
+/* ===== FIX STREAMLIT LABEL VISIBILITY ===== */
+div[data-testid="stWidgetLabel"] > label {
     color: #ffffff !important;
-    font-weight: 600;
+    font-weight: 600 !important;
+    font-size: 14px !important;
 }
 
-/* Input text */
-.stSelectbox div, 
+/* Input box text */
+.stSelectbox div,
 .stNumberInput input {
     color: #2b1a0f !important;
     font-weight: 500;
@@ -56,15 +57,6 @@ input::placeholder {
     font-size: 16px;
     opacity: 0.9;
     margin-bottom: 30px;
-}
-
-/* Card */
-.card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 25px;
-    border-radius: 14px;
-    color: #2b1a0f;
-    margin-bottom: 25px;
 }
 
 /* Section heading */
@@ -119,8 +111,6 @@ input::placeholder {
     margin-top: 40px;
     opacity: 0.9;
 }
-
-/* Footer buttons */
 .footer a {
     display: inline-block;
     margin: 10px;
@@ -150,34 +140,31 @@ st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
-If you experience stroke symptoms, seek immediate medical attention.
+Always consult qualified healthcare professionals.
+If you experience stroke symptoms, seek emergency medical help.
 </div>
 """, unsafe_allow_html=True)
 
 # ---------------- PATIENT INFO ----------------
 st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
 
-with st.container():
+c1, c2 = st.columns(2)
 
-    c1, c2 = st.columns(2)
+with c1:
+    gender = st.selectbox("Gender", ["Male", "Female"])
+    age = st.number_input("Age", 1, 100, 45)
+    hypertension = st.selectbox("Hypertension", [0, 1])
+    heart_disease = st.selectbox("Heart Disease", [0, 1])
+    ever_married = st.selectbox("Ever Married", ["Yes", "No"])
 
-    with c1:
-        gender = st.selectbox("Gender", ["Male", "Female"])
-        age = st.number_input("Age", 1, 100, 45)
-        hypertension = st.selectbox("Hypertension", [0, 1])
-        heart_disease = st.selectbox("Heart Disease", [0, 1])
-        ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+with c2:
+    work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
+    residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
+    glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
+    bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+    smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
-    with c2:
-        work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-        residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-        glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-        bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
-        smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
-
-    analyze = st.button("🔍 Analyze Stroke Risk")
-    st.markdown("</div>", unsafe_allow_html=True)
+analyze = st.button("🔍 Analyze Stroke Risk")
 
 # ---------------- PREDICTION ----------------
 if analyze:
