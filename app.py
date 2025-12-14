@@ -13,40 +13,35 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* App background */
+/* Background */
 .stApp {
     background: linear-gradient(135deg, #664C36, #331C08);
-    color: white;
+    color: #ffffff;
 }
 
-/* ===== FORCE ALL STREAMLIT LABELS TO WHITE ===== */
-label,
-span[data-testid="stWidgetLabel"],
-div[data-testid="stWidgetLabel"] > label,
-div[data-testid="stWidgetLabel"] span,
-.st-emotion-cache-16idsys,
-.st-emotion-cache-16idsys span,
-.st-emotion-cache-16idsys label {
-    color: #ffffff !important;
-    font-weight: 600 !important;
-    font-size: 14px !important;
+/* Main title */
+.main-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
-/* Input field text */
-input,
-textarea {
-    color: #2b1a0f !important;
-    font-weight: 500;
+/* Subtitle */
+.subtitle {
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 30px;
 }
 
-/* Selectbox selected value */
-.stSelectbox span {
-    color: #2b1a0f !important;
-}
-
-/* Dropdown menu options */
-ul li {
-    color: #2b1a0f !important;
+/* Card */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 14px;
+    color: #2b1a0f;
+    margin-bottom: 25px;
 }
 
 /* Section heading */
@@ -55,6 +50,16 @@ ul li {
     font-weight: 600;
     margin-bottom: 15px;
     color: #ffffff;
+}
+
+/* Disclaimer */
+.disclaimer {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-left: 6px solid #f5c542;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 25px;
 }
 
 /* Buttons */
@@ -73,13 +78,13 @@ ul li {
 
 /* Result boxes */
 .result-high {
-    background: rgba(220, 53, 69, 0.2);
+    background: rgba(220, 53, 69, 0.15);
     padding: 20px;
     border-left: 6px solid #dc3545;
     border-radius: 12px;
 }
 .result-low {
-    background: rgba(40, 167, 69, 0.2);
+    background: rgba(40, 167, 69, 0.15);
     padding: 20px;
     border-left: 6px solid #28a745;
     border-radius: 12px;
@@ -89,7 +94,10 @@ ul li {
 .footer {
     text-align: center;
     margin-top: 40px;
+    opacity: 0.9;
 }
+
+/* Footer buttons */
 .footer a {
     display: inline-block;
     margin: 10px;
@@ -119,31 +127,36 @@ st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals.
-If you experience stroke symptoms, seek emergency medical help.
+Always consult qualified healthcare professionals for medical decisions.
+If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
+seek immediate medical attention.
 </div>
 """, unsafe_allow_html=True)
 
 # ---------------- PATIENT INFO ----------------
 st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
 
-c1, c2 = st.columns(2)
+with st.container():
+    st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-with c1:
-    gender = st.selectbox("Gender", ["Male", "Female"])
-    age = st.number_input("Age", 1, 100, 45)
-    hypertension = st.selectbox("Hypertension", [0, 1])
-    heart_disease = st.selectbox("Heart Disease", [0, 1])
-    ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+    c1, c2 = st.columns(2)
 
-with c2:
-    work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
-    residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-    glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-    bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
-    smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
+    with c1:
+        gender = st.selectbox("Gender", ["Male", "Female"])
+        age = st.number_input("Age", 1, 100, 45)
+        hypertension = st.selectbox("Hypertension", [0, 1])
+        heart_disease = st.selectbox("Heart Disease", [0, 1])
+        ever_married = st.selectbox("Ever Married", ["Yes", "No"])
 
-analyze = st.button("🔍 Analyze Stroke Risk")
+    with c2:
+        work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
+        residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
+        glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
+        bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+        smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
+
+    analyze = st.button("🔍 Analyze Stroke Risk")
+    st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- PREDICTION ----------------
 if analyze:
