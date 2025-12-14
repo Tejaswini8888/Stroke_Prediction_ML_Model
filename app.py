@@ -12,32 +12,104 @@ st.set_page_config(
 # ---------------- CUSTOM CSS ----------------
 st.markdown("""
 <style>
-/* ===== FORM LABELS ===== */
-label, .stSelectbox label, .stNumberInput label {
-    color: #ffffff !important;
-    font-weight: 500;
+
+/* Background */
+.stApp {
+    background: linear-gradient(135deg, #664C36, #331C08);
+    color: #ffffff;
 }
 
-/* ===== INPUT TEXT ===== */
-.stSelectbox div, 
-.stNumberInput input {
-    color: #2b1a0f !important;
-    font-weight: 500;
+/* Main title */
+.main-title {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
-/* ===== DROPDOWN SELECTED VALUE ===== */
-.stSelectbox span {
-    color: #2b1a0f !important;
+/* Subtitle */
+.subtitle {
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 30px;
 }
 
-/* ===== PLACEHOLDER TEXT ===== */
-input::placeholder {
-    color: #777 !important;
+/* Card */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 14px;
+    color: #2b1a0f;
+    margin-bottom: 25px;
 }
 
-/* ===== SECTION TITLE FIX ===== */
+/* Section heading */
 .section-title {
-    color: #ffffff !important;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+/* Disclaimer */
+.disclaimer {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 18px;
+    border-left: 6px solid #f5c542;
+    border-radius: 10px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Buttons */
+.stButton > button {
+    background: #331C08;
+    color: white;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+}
+.stButton > button:hover {
+    background: #4a2a12;
+}
+
+/* Result boxes */
+.result-high {
+    background: rgba(220, 53, 69, 0.15);
+    padding: 20px;
+    border-left: 6px solid #dc3545;
+    border-radius: 12px;
+}
+.result-low {
+    background: rgba(40, 167, 69, 0.15);
+    padding: 20px;
+    border-left: 6px solid #28a745;
+    border-radius: 12px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    opacity: 0.9;
+}
+
+/* Footer buttons */
+.footer a {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 22px;
+    background: rgba(255,255,255,0.18);
+    color: white;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.footer a:hover {
+    background: rgba(255,255,255,0.3);
 }
 
 </style>
