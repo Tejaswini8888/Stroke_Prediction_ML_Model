@@ -19,15 +19,14 @@ st.markdown(
         color: #ffffff;
     }
 
-    /* =========================
-       ✅ FINAL LABEL VISIBILITY FIX
-       (works in dark + light mode)
-       ========================= */
-    div[data-testid="stWidgetLabel"] label {
-        color: #ffffff !important;
-        font-weight: 500 !important;
-        opacity: 1 !important;
+   /* FORCE ALL LABELS TO BE CONSISTENT */
+    div[data-testid="stWidgetLabel"] label,
+    div[data-testid="stWidgetLabel"] p {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    opacity: 1 !important;
     }
+
 
     /* Do NOT touch input values */
     .stSelectbox div,
