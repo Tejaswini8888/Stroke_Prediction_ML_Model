@@ -12,6 +12,8 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from app import model
+
 # 1. Load data
 df = pd.read_csv("stroke.csv")
 print("Data shape:", df.shape)
@@ -61,7 +63,7 @@ pipeline.fit(X_train, y_train)
 print("\nModel trained.")
 
 import joblib
-joblib.dump(pipeline, "stroke_pipeline.joblib")
+joblib.dump(model, "stroke_pipeline.joblib", compress=3)
 
 # 8. Predict & evaluate
 y_pred = pipeline.predict(X_test)
