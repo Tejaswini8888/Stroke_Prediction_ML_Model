@@ -9,21 +9,25 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------- CUSTOM THEME CSS ----------------
+# ---------------- CUSTOM CSS ----------------
 st.markdown("""
 <style>
-body {
-    background-color: #6f63c2;
+/* Full background */
+.stApp {
+    background: linear-gradient(135deg, #6f63c2, #8f7ae6);
 }
 
-.app-container {
-    background: #ffffff;
+/* Main card */
+.main-card {
+    background: white;
     padding: 35px;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    margin-top: 20px;
+    border-radius: 20px;
+    max-width: 850px;
+    margin: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
+/* Titles */
 .title {
     text-align: center;
     font-size: 36px;
@@ -33,28 +37,32 @@ body {
 
 .subtitle {
     text-align: center;
-    color: #666;
+    color: #555;
     margin-bottom: 25px;
 }
 
+/* Disclaimer */
 .disclaimer {
-    background: #fdf3d6;
+    background: #fff3cd;
     padding: 18px;
-    border-left: 6px solid #d4a017;
+    border-left: 6px solid #f0ad4e;
     border-radius: 10px;
     font-size: 14px;
     margin-bottom: 25px;
 }
 
-.button-primary > button {
-    background: linear-gradient(90deg, #6f63c2, #8b7ae6);
+/* Buttons */
+.stButton > button {
+    width: 100%;
+    background: linear-gradient(90deg, #6f63c2, #8f7ae6);
     color: white;
     font-size: 18px;
-    border-radius: 10px;
-    padding: 10px 25px;
+    border-radius: 12px;
+    padding: 12px;
     border: none;
 }
 
+/* Result boxes */
 .result-high {
     background: #fdecea;
     padding: 20px;
@@ -71,20 +79,21 @@ body {
     font-size: 18px;
 }
 
+/* Footer */
 .footer {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 35px;
 }
 
 .footer a {
     display: inline-block;
-    background: rgba(255,255,255,0.15);
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 12px;
+    background: rgba(255,255,255,0.25);
     color: white;
-    text-decoration: none;
+    padding: 12px 22px;
+    margin: 6px;
+    border-radius: 16px;
     font-weight: 600;
+    text-decoration: none;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -92,8 +101,8 @@ body {
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
 
-# ---------------- APP UI ----------------
-st.markdown("<div class='app-container'>", unsafe_allow_html=True)
+# ---------------- UI START ----------------
+st.markdown("<div class='main-card'>", unsafe_allow_html=True)
 
 st.markdown("<div class='title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Early Risk Detection using Machine Learning</div>", unsafe_allow_html=True)
@@ -103,14 +112,14 @@ st.markdown("""
 <div class="disclaimer">
 ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
 This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.<br><br>
-This prediction model may have limitations and should not be used for emergency situations.
+Always consult qualified healthcare professionals.<br><br>
+This model should not be used in emergency situations.
 If you experience stroke symptoms (sudden numbness, confusion, trouble speaking, severe headache),
-seek immediate medical attention by calling emergency services.
+seek immediate medical help.
 </div>
 """, unsafe_allow_html=True)
 
-# ---------------- INPUT FORM ----------------
+# ---------------- FORM ----------------
 st.subheader("🩺 Patient Information")
 
 gender = st.selectbox("Gender", ["Male", "Female"])
@@ -124,12 +133,10 @@ glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
 bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
 smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
-st.markdown("<div class='button-primary'>", unsafe_allow_html=True)
-predict_btn = st.button("🔍 Analyze Stroke Risk")
-st.markdown("</div>", unsafe_allow_html=True)
+predict = st.button("🔍 Analyze Stroke Risk")
 
 # ---------------- PREDICTION ----------------
-if predict_btn:
+if predict:
     input_df = pd.DataFrame([{
         "gender": gender,
         "age": age,
@@ -143,15 +150,15 @@ if predict_btn:
         "smoking_status": smoking
     }])
 
-    prediction = model.predict(input_df)[0]
+    result = model.predict(input_df)[0]
 
     st.write("")
 
-    if prediction == 1:
+    if result == 1:
         st.markdown("""
         <div class="result-high">
         🚨 <b>High Stroke Risk Detected</b><br>
-        Immediate medical consultation is strongly recommended.
+        Please consult a healthcare professional immediately.
         </div>
         """, unsafe_allow_html=True)
         st.progress(85)
@@ -159,7 +166,7 @@ if predict_btn:
         st.markdown("""
         <div class="result-low">
         ✅ <b>Low Stroke Risk Detected</b><br>
-        Maintain a healthy lifestyle and regular checkups.
+        Continue maintaining a healthy lifestyle.
         </div>
         """, unsafe_allow_html=True)
         st.progress(25)
