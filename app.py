@@ -21,17 +21,19 @@ st.markdown(
 
     /* =====================================================
        ✅ FINAL LABEL VISIBILITY FIX (ONLY CHANGE)
-       Makes ALL labels (Gender, Hypertension, etc.)
-       look exactly like Age / BMI / Glucose
+       Makes ALL labels behave like:
+       Age, BMI, Avg Glucose Level
+       Works in Dark + Light mode
        ===================================================== */
     div[data-testid="stWidgetLabel"] label,
-    div[data-testid="stWidgetLabel"] p {
+    div[data-testid="stWidgetLabel"] p,
+    div[data-testid="stWidgetLabel"] span {
         color: #ffffff !important;
         font-weight: 600 !important;
         opacity: 1 !important;
     }
 
-    /* Input text (unchanged) */
+    /* Input text (UNCHANGED) */
     .stSelectbox div,
     .stNumberInput input {
         color: #2b1a0f !important;
