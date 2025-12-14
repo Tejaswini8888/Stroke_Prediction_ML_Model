@@ -1,112 +1,121 @@
-# 🧠 Stroke Prediction ML Model
+# 🧠 AI Stroke Risk Prediction System
 
-This project predicts whether a person is at risk of **stroke (1)** or **not (0)** using machine learning.  
-It uses medical and lifestyle data such as age, hypertension, heart disease, glucose level, BMI, smoking status, etc.
-
-The model is built using a complete ML pipeline
-
-(preprocessing → training → evaluation → prediction).
+An **AI-powered Stroke Risk Prediction System** built using **Python, Machine Learning, and Streamlit**.  
+This application helps in **early stroke risk assessment** by analyzing patient health data using a trained ML model, presented through a clean and interactive healthcare-focused UI.
 
 ---
 
-## 📂 Dataset
+## 🌐 Live Demo
 
-The dataset **stroke.csv** contains the following columns:
-
-age, hypertension, heart_disease, ever_married, avg_glucose_level,
-bmi, smoking_status, gender, work_type, residence_type, stroke
-
-yaml
-Copy code
-
-- `stroke` is the target column (0 = No Stroke, 1 = Stroke).
-
-This dataset is synthetic and created for learning purposes.
+🔗 **Try the App Here:**  
+https://strokepredictionmlmodel-p.streamlit.app/
 
 ---
 
-## 🔧 Requirements
+## 🚀 Features
 
-Install all dependencies:
+- 🧠 AI-based stroke risk prediction
+- 🩺 User-friendly patient information form
+- 🎯 Explicit dropdown selections (Select-first UX)
+- 📊 Predicts **High Risk** or **Low Risk**
+- ⚠️ Medical disclaimer for ethical AI usage
+- ✨ Interactive UI with modern teal theme
+- ⚡ Fast predictions using a pre-trained ML pipeline
 
+---
+
+## 🧠 Prediction Approach
+
+- A **supervised machine learning model** trained on healthcare data
+- Uses patient attributes such as:
+  - Age
+  - Gender
+  - Hypertension
+  - Heart disease
+  - BMI
+  - Average glucose level
+  - Smoking status
+  - Work type
+  - Residence type
+- Model is loaded using a **saved pipeline (`joblib`)**
+- Predicts stroke risk as:
+  - ✅ Low Risk
+  - 🚨 High Risk
+
+---
+
+## 🛠️ Tech Stack
+
+- **Language:** Python
+- **Web Framework:** Streamlit
+- **Machine Learning:** Scikit-learn
+- **Model Handling:** Joblib
+- **Data Processing:** Pandas
+- **Styling:** Custom CSS (Healthcare UI)
+
+---
+
+## 📂 Project Structure
+
+```
+├── app.py                     # Main Streamlit application
+├── stroke_pipeline.joblib     # Trained ML pipeline
+├── requirements.txt           # Python dependencies
+├── .runtime.txt               # Python version for Streamlit Cloud
+├── README.md                  # Project documentation
+└── .streamlit/
+    └── secrets.toml           # (If required for future extensions)
+```
+
+---
+
+## ▶️ Run Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/Tejaswini8888/Stroke_Prediction_ML_Model.git
+
+# Navigate into the project
+cd Stroke_Prediction_ML_Model
+
+# Install dependencies
 pip install -r requirements.txt
 
-
-Your `requirements.txt` should contain:
-
-pandas\
-numpy\
-scikit-learn\
-matplotlib\
-seaborn
-
-
-> **Note:**  
-> If using scikit-learn 1.2 or above, the encoder should use:  
-> `OneHotEncoder(handle_unknown="ignore", sparse_output=False)`
-
----
-
-## ▶️ How to Run
-Run the script:
-```
-python main.py
+# Run the Streamlit app
+streamlit run app.py
 ```
 
-This will:
-
-1. Load the dataset  
-2. Preprocess numeric and categorical features  
-3. Train a RandomForest model  
-4. Evaluate model performance  
-5. Display a confusion matrix  
-6. Predict stroke risk for a sample new patient  
-
 ---
 
-## 📊 Model Evaluation
+## ⚠️ Medical Disclaimer
 
-The script prints:
-
-- **Accuracy**
-- **Classification Report** (precision, recall, F1-score)
-- **Confusion Matrix** (visualized using Seaborn)
-
-These help you understand how well the model performs, especially on medical predictions where recall is important.
-
----
-
-## 🧪 Example Prediction
-
-The program includes an example input for a new patient and prints:
-
-1 = High risk of stroke
-0 = No stroke risk
-
----
-
-
-
-## 🚀 Future Improvements
-
-You can enhance this project by adding:
-
-- Class imbalance handling (SMOTE, class weights)
-- Hyperparameter tuning (GridSearchCV)
-- Feature importance analysis
-- Model explainability (SHAP)
-- XGBoost or LightGBM models
+This application is intended **for educational and demonstration purposes only**.  
+It should **NOT** be used as a substitute for professional medical diagnosis or treatment.  
+Always consult qualified healthcare professionals for medical advice.
 
 ---
 
 ## 👩‍💻 Author
 
-**Tejaswini Madarapu**  
+**Tejaswini Madarapu**
+
 - GitHub: https://github.com/Tejaswini8888  
 - LinkedIn: https://www.linkedin.com/in/tejaswini-madarapu/
 
 ---
 
-## 📄 License
+## ⭐ Acknowledgements
 
-This project is open for learning and portfolio use.
+- Public healthcare datasets used for training
+- Streamlit for the web application framework
+- Scikit-learn for machine learning utilities
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+✨ **If you find this project useful, don’t forget to give it a ⭐ on GitHub!**
