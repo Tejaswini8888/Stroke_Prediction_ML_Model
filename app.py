@@ -10,7 +10,6 @@ st.set_page_config(
 )
 
 # ---------------- CUSTOM CSS ----------------
-
 st.markdown(
     """
     <style>
@@ -20,19 +19,12 @@ st.markdown(
         color: #ffffff;
     }
 
-    /* 🔥 FORCE ALL LABELS TO BE WHITE & VISIBLE */
-    label,
-    .stSelectbox label,
-    .stNumberInput label,
-    .stTextInput label,
-    [data-testid="stWidgetLabel"],
-    [data-testid="stWidgetLabel"] p,
-    .stSelectbox > div > div > div > p,
-    .stNumberInput > div > div > label {
+    /* ✅ ONLY FIX: FORCE ALL FORM LABELS TO BE VISIBLE */
+    div[data-testid="stWidgetLabel"] > label {
         color: #ffffff !important;
         font-weight: 600 !important;
-        font-size: 14px !important;
         opacity: 1 !important;
+        font-size: 14px !important;
     }
 
     /* Input text */
@@ -86,12 +78,45 @@ st.markdown(
     .stButton > button:hover {
         background: #4a2a12;
     }
+
+    .result-high {
+        background: rgba(220, 53, 69, 0.15);
+        padding: 20px;
+        border-left: 6px solid #dc3545;
+        border-radius: 12px;
+    }
+
+    .result-low {
+        background: rgba(40, 167, 69, 0.15);
+        padding: 20px;
+        border-left: 6px solid #28a745;
+        border-radius: 12px;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 40px;
+        opacity: 0.9;
+    }
+
+    .footer a {
+        display: inline-block;
+        margin: 10px;
+        padding: 12px 22px;
+        background: rgba(255,255,255,0.18);
+        color: white;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .footer a:hover {
+        background: rgba(255,255,255,0.3);
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
-
-
 
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
@@ -101,21 +126,23 @@ st.markdown("<div class='main-title'>🧠 AI Stroke Risk Predictor</div>", unsaf
 st.markdown("<div class='subtitle'>Early Stroke Risk Detection using Machine Learning</div>", unsafe_allow_html=True)
 
 # ---------------- DISCLAIMER ----------------
-st.markdown("""
-<div class="disclaimer">
-⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
-This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
-If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
-seek immediate medical attention.
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class="disclaimer">
+    ⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
+    This AI tool is for educational purposes only and should NOT replace professional medical advice.
+    Always consult qualified healthcare professionals for medical decisions.
+    If you experience symptoms such as sudden numbness, confusion, trouble speaking, or severe headache,
+    seek immediate medical attention.
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 
 # ---------------- PATIENT INFO ----------------
 st.markdown("<div class='section-title'>🩺 Patient Information</div>", unsafe_allow_html=True)
 
 with st.container():
-
     c1, c2 = st.columns(2)
 
     with c1:
@@ -133,7 +160,6 @@ with st.container():
         smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
 
     analyze = st.button("🔍 Analyze Stroke Risk")
-    st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- PREDICTION ----------------
 if analyze:
@@ -153,27 +179,36 @@ if analyze:
     pred = model.predict(input_df)[0]
 
     if pred == 1:
-        st.markdown("""
-        <div class="result-high">
-        🚨 <b>High Stroke Risk Detected</b><br>
-        Please consult a medical professional immediately.
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="result-high">
+            🚨 <b>High Stroke Risk Detected</b><br>
+            Please consult a medical professional immediately.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         st.progress(85)
     else:
-        st.markdown("""
-        <div class="result-low">
-        ✅ <b>Low Stroke Risk Detected</b><br>
-        Maintain a healthy lifestyle and regular checkups.
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="result-low">
+            ✅ <b>Low Stroke Risk Detected</b><br>
+            Maintain a healthy lifestyle and regular checkups.
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
         st.progress(25)
 
 # ---------------- FOOTER ----------------
-st.markdown("""
-<div class="footer">
-🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare<br><br>
-<a href="https://github.com/Tejaswini8888" target="_blank">👩‍💻 GitHub</a>
-<a href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    """
+    <div class="footer">
+    🔒 Powered by Advanced Machine Learning • Built with ❤️ for Healthcare<br><br>
+    <a href="https://github.com/Tejaswini8888" target="_blank">👩‍💻 GitHub</a>
+    <a href="https://www.linkedin.com/in/tejaswini-madarapu/" target="_blank">💼 LinkedIn</a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
