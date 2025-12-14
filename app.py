@@ -13,12 +13,13 @@ st.set_page_config(
 st.markdown("""
 <style>
 body {
-    background-color: #f4f6fb;
+    background: linear-gradient(to right, #eef2f3, #e0eafc);
 }
 .main-title {
     text-align: center;
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 700;
+    color: #1f2933;
 }
 .subtitle {
     text-align: center;
@@ -27,29 +28,32 @@ body {
 }
 .card {
     background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.08);
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.08);
     margin-bottom: 20px;
 }
 .disclaimer {
-    background: #fff3cd;
-    padding: 18px;
-    border-left: 6px solid #ffc107;
-    border-radius: 8px;
+    background: #fff4e5;
+    padding: 16px;
+    border-left: 6px solid #f59e0b;
+    border-radius: 10px;
     font-size: 14px;
 }
 .result-high {
     background: #fdecea;
     padding: 20px;
-    border-left: 6px solid #dc3545;
-    border-radius: 10px;
+    border-left: 6px solid #dc2626;
+    border-radius: 12px;
 }
 .result-low {
-    background: #e7f5ec;
+    background: #ecfdf3;
     padding: 20px;
-    border-left: 6px solid #28a745;
-    border-radius: 10px;
+    border-left: 6px solid #16a34a;
+    border-radius: 12px;
+}
+.center {
+    text-align: center;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -59,23 +63,25 @@ model = joblib.load("stroke_pipeline.joblib")
 
 # ---------------- HEADER ----------------
 st.markdown("<div class='main-title'>🧠 AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Advanced Machine Learning for Healthcare Screening</div>", unsafe_allow_html=True)
+st.markdown(
+    "<div class='subtitle'>Early Risk Detection using Machine Learning</div>",
+    unsafe_allow_html=True
+)
 
 # ---------------- DISCLAIMER ----------------
 st.markdown("""
 <div class="disclaimer">
-⚠️ <b>IMPORTANT MEDICAL DISCLAIMER</b><br>
-This AI tool is for educational purposes only and should NOT replace professional medical advice.
-Always consult qualified healthcare professionals for medical decisions.
+⚠️ <b>Medical Disclaimer:</b><br>
+This tool is for educational purposes only and does not replace professional medical advice.
 </div>
 """, unsafe_allow_html=True)
 
 st.write("")
 
-# ---------------- MAIN LAYOUT ----------------
-left, right = st.columns([2,1])
+# ---------------- LAYOUT ----------------
+left, right = st.columns([2, 1])
 
-# ---------------- INPUT CARD ----------------
+# ---------------- INPUT FORM ----------------
 with left:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
     st.subheader("🩺 Patient Information")
@@ -84,48 +90,60 @@ with left:
 
     with col1:
         gender = st.selectbox("Gender", ["Male", "Female"])
-        age = st.number_input("Age", 1, 100, 45)
-        hypertension = st.selectbox("Hypertension", [0, 1])
-        heart_disease = st.selectbox("Heart Disease", [0, 1])
-        ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+        age = st.slider("Age", 1, 100, 45)
+        hypertension = st.radio("Hypertension", [0, 1], horizontal=True)
+        heart_disease = st.radio("Heart Disease", [0, 1], horizontal=True)
 
     with col2:
-        work_type = st.selectbox("Work Type", ["Private", "Self-employed", "Govt_job", "children"])
+        ever_married = st.selectbox("Ever Married", ["Yes", "No"])
+        work_type = st.selectbox(
+            "Work Type",
+            ["Private", "Self-employed", "Govt_job", "children"]
+        )
         residence_type = st.selectbox("Residence Type", ["Urban", "Rural"])
-        glucose = st.number_input("Avg Glucose Level (mg/dL)", 50.0, 300.0, 110.0)
-        bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
-        smoking = st.selectbox("Smoking Status", ["never smoked", "formerly smoked", "smokes"])
+        smoking = st.selectbox(
+            "Smoking Status",
+            ["never smoked", "formerly smoked", "smokes"]
+        )
 
-    predict_btn = st.button("🔍 Analyze Stroke Risk")
+    glucose = st.number_input(
+        "Average Glucose Level (mg/dL)", 50.0, 300.0, 110.0
+    )
+    bmi = st.number_input("BMI", 10.0, 60.0, 26.0)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    predict_btn = st.button("🔍 Analyze Stroke Risk", use_container_width=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
-# ---------------- SIDE VISUAL CARD ----------------
+# ---------------- INFO CARD ----------------
 with right:
     st.markdown("<div class='card'>", unsafe_allow_html=True)
-    st.subheader("🧠 Ready for Analysis")
-    st.image(
-        "https://images.unsplash.com/photo-1581091012184-5c7b6c5b3a63",
-        use_container_width=True
-    )
-    st.markdown("AI evaluates risk based on health indicators.")
+    st.subheader("ℹ️ About This App")
+    st.markdown("""
+- Uses trained **Machine Learning model**
+- Combines medical & lifestyle data
+- Provides quick **risk classification**
+- Designed for **early awareness**
+    """)
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ---------------- PREDICTION ----------------
 if predict_btn:
-    input_df = pd.DataFrame([{
-        "gender": gender,
-        "age": age,
-        "hypertension": hypertension,
-        "heart_disease": heart_disease,
-        "ever_married": ever_married,
-        "work_type": work_type,
-        "residence_type": residence_type,
-        "avg_glucose_level": glucose,
-        "bmi": bmi,
-        "smoking_status": smoking
-    }])
+    with st.spinner("Analyzing patient data..."):
+        input_df = pd.DataFrame([{
+            "gender": gender,
+            "age": age,
+            "hypertension": hypertension,
+            "heart_disease": heart_disease,
+            "ever_married": ever_married,
+            "work_type": work_type,
+            "residence_type": residence_type,
+            "avg_glucose_level": glucose,
+            "bmi": bmi,
+            "smoking_status": smoking
+        }])
 
-    prediction = model.predict(input_df)[0]
+        prediction = model.predict(input_df)[0]
 
     st.write("")
 
@@ -133,10 +151,10 @@ if predict_btn:
         st.markdown("""
         <div class="result-high">
         🚨 <b>High Stroke Risk Detected</b><br>
-        Immediate medical consultation is recommended.
+        Preventive medical consultation is recommended.
         </div>
         """, unsafe_allow_html=True)
-        st.progress(85)
+        st.progress(80)
     else:
         st.markdown("""
         <div class="result-low">
@@ -149,7 +167,10 @@ if predict_btn:
 # ---------------- FOOTER ----------------
 st.markdown("---")
 st.markdown(
-    "Created by **Tejaswini Madarapu** | "
-    "[GitHub](https://github.com/Tejaswini8888) | "
-    "[LinkedIn](https://www.linkedin.com/in/tejaswini-madarapu/)"
+    "<div class='center'>"
+    "Created by <b>Tejaswini Madarapu</b> • "
+    "<a href='https://github.com/Tejaswini8888'>GitHub</a> • "
+    "<a href='https://www.linkedin.com/in/tejaswini-madarapu/'>LinkedIn</a>"
+    "</div>",
+    unsafe_allow_html=True
 )
