@@ -102,7 +102,7 @@ st.markdown("""
 model = joblib.load("stroke_pipeline.joblib")
 
 # ---------------- UI START ----------------
-st.markdown("<div class='main-card'>", unsafe_allow_html=True)
+# st.markdown("<div class='main-card'>", unsafe_allow_html=True)
 
 st.markdown("<div class='title'> AI Stroke Risk Predictor</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Early Risk Detection using Machine Learning</div>", unsafe_allow_html=True)
