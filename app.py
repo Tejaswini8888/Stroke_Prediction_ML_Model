@@ -12,40 +12,51 @@ st.set_page_config(
 # ---------------- CUSTOM CSS ----------------
 st.markdown("""
 <style>
-/* Background */
-.stApp {
-    background-color: #f6f3ef;
+
+/* FULL APP BACKGROUND */
+[data-testid="stAppViewContainer"] {
+    background: linear-gradient(135deg, #664C36, #331C08);
 }
 
-/* Header box */
-.header-box {
-    background: linear-gradient(135deg, #664C36, #331C08);
+/* REMOVE STREAMLIT HEADER SPACE */
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+/* MAIN CONTENT CARD */
+.main-card {
+    background: #ffffff;
     padding: 30px;
     border-radius: 18px;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+    margin-top: 20px;
+}
+
+/* HEADER BOX */
+.header-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
     text-align: center;
-    color: white;
     margin-bottom: 25px;
 }
 
-/* Cards */
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.08);
-    margin-bottom: 20px;
+.header-box h1 {
+    color: #331C08;
+    font-size: 36px;
+    font-weight: 800;
 }
 
-/* Disclaimer */
+/* DISCLAIMER */
 .disclaimer {
     background: #fff3cd;
     padding: 16px;
     border-left: 6px solid #ffc107;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 14px;
 }
 
-/* Result boxes */
+/* RESULTS */
 .result-high {
     background: #fdecea;
     padding: 18px;
@@ -60,7 +71,17 @@ st.markdown("""
     border-radius: 12px;
 }
 
-/* Footer buttons */
+/* BUTTON STYLE */
+.stButton > button {
+    background: linear-gradient(135deg, #664C36, #331C08);
+    color: white;
+    font-size: 16px;
+    padding: 12px 22px;
+    border-radius: 14px;
+    border: none;
+}
+
+/* FOOTER BUTTONS */
 .footer-btn {
     display: inline-block;
     padding: 12px 22px;
@@ -71,8 +92,10 @@ st.markdown("""
     text-decoration: none;
     font-weight: 600;
 }
+
 </style>
 """, unsafe_allow_html=True)
+
 
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("stroke_pipeline.joblib")
